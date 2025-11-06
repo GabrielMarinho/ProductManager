@@ -10,5 +10,5 @@ public class Product : BaseEntity<int>, IIdentifiable
     public int IdCategory { get; set; }
     public decimal UnitCost { get; set; }
     
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
 }

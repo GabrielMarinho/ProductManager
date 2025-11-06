@@ -1,3 +1,5 @@
-﻿namespace ProductManager.Application.Endpoints.Product.Get;
+﻿using ProductManager.Domain.Dtos;
 
-public record ProductGetResponse();
+namespace ProductManager.Application.Endpoints.Product.Get;
+
+public record ProductGetResponse(ProductDto Product);

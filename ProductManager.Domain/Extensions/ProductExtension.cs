@@ -11,6 +11,7 @@ public static class ProductExtension
             product.Identifier,
             product.Name,
             product.IdCategory,
-            product.UnitCost);
+            product.UnitCost,
+            product.Category?.ToDto());
     }
 }

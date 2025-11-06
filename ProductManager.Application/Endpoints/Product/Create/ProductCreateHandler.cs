@@ -1,17 +1,21 @@
 ﻿using FastEndpoints;
 using Microsoft.Extensions.Logging;
+using ProductManager.Domain.Extensions;
+using ProductManager.Domain.Interfaces.Queue;
 using ProductManager.Domain.Interfaces.Repository;
 
 namespace ProductManager.Application.Endpoints.Product.Create;
 
 public class ProductCreateHandler(
     ILogger<ProductCreateHandler> logger,
-    IProductRepository productRepository) :
+    IProductRepository productRepository,
+    IQueueEvents queueEvents) :
     Endpoint<ProductCreateRequest, ProductCreateResponse>
 {
     public override void Configure()
     {
         Post("/product");
+        AllowAnonymous();
     }
     
     public override async Task HandleAsync(ProductCreateRequest req, CancellationToken ct)
@@ -33,7 +37,12 @@ public class ProductCreateHandler(
             UnitCost = req.UnitCost
         };
 
-        
-        await Task.CompletedTask;
+        await productRepository.InsertAsync(product);
+        await productRepository.CommitAsync();
+
+        var productDto = product.ToDto();
+        await queueEvents.PublishAsync("product.created", productDto, ct);
+
+        await Send.OkAsync(new ProductCreateResponse(productDto), ct);
     }
 }

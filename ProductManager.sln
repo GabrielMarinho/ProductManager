@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductManager.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductManager.Tests", "ProductManager.Tests\ProductManager.Tests.csproj", "{80D25644-A3A0-4F49-9CF9-DF7821E93E09}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{563C282E-83EC-441D-8AEF-16E594D6C97E}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\guidelines.md = Docs\guidelines.md
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,5 +47,8 @@ Global
 		{80D25644-A3A0-4F49-9CF9-DF7821E93E09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80D25644-A3A0-4F49-9CF9-DF7821E93E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80D25644-A3A0-4F49-9CF9-DF7821E93E09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{563C282E-83EC-441D-8AEF-16E594D6C97E} = {F0B8CBF9-4F60-4E00-8D79-1CA28F4A684A}
 	EndGlobalSection
 EndGlobal

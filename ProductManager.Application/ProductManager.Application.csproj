@@ -11,10 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Endpoints\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\ProductManager.Domain\ProductManager.Domain.csproj" />
     </ItemGroup>
 

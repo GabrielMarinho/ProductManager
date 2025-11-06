@@ -1,3 +1,5 @@
-﻿namespace ProductManager.Application.Endpoints.Product.Create;
+﻿using ProductManager.Domain.Dtos;
 
-public record ProductCreateResponse();
+namespace ProductManager.Application.Endpoints.Product.Create;
+
+public record ProductCreateResponse(ProductDto Product);

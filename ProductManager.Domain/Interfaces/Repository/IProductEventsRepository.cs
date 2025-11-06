@@ -1,6 +1,8 @@
-﻿namespace ProductManager.Domain.Interfaces.Repository;
+﻿using ProductManager.Domain.Entities;
 
-public interface IProductEventsRepository
+namespace ProductManager.Domain.Interfaces.Repository;
+
+public interface IProductEventsRepository : IBaseRepository<ProductEvents>
 {
     
 }

@@ -14,6 +14,7 @@ public class ProductListHandler(
     public override void Configure()
     {
         Get("/products");
+        AllowAnonymous();
     }
     
     public override async Task HandleAsync(ProductListRequest req, CancellationToken ct)

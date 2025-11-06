@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using BookRental.Domain.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProductManager.Domain.Entities;
 
@@ -16,31 +15,25 @@ public class ProductContext(DbContextOptions<ProductContext> options) : DbContex
         base.OnModelCreating(modelBuilder);
         
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        
-        modelBuilder
-            .Entity<BaseEntity<int>>()
-            .HasQueryFilter(q => q.Active)
-            .ToTable(nameof(BaseEntity<int>), t => t.ExcludeFromMigrations());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseAsyncSeeding(async (context, _, cancellationToken) =>
         {
-            var total = await context.Set<Category>().CountAsync(cancellationToken);
-            if (total > 0)
-                return;
-
-            context.Set<Category>().Add(new Category()
-            {
-                Id = 1, 
-                Name = "Drink",
-                Identifier = Guid.NewGuid(), 
-                CreatedAt = DateTime.Now,
-                Active = true
-            });
-            
-            await context.SaveChangesAsync(cancellationToken);
+           var total = await context.Set<Category>().CountAsync(cancellationToken);
+           if (total > 0)
+               return;
+           
+           context.Set<Category>().Add(new Category()
+           { 
+               Name = "Drink",
+               Identifier = Guid.NewGuid(), 
+               CreatedAt = DateTime.Now,
+               Active = true
+           });
+           
+           await context.SaveChangesAsync(cancellationToken);
         });
         
         base.OnConfiguring(optionsBuilder);

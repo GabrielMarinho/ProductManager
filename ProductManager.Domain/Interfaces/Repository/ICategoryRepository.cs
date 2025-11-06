@@ -1,6 +1,8 @@
-﻿namespace ProductManager.Domain.Interfaces.Repository;
+﻿using ProductManager.Domain.Entities;
 
-public interface ICategoryRepository
+namespace ProductManager.Domain.Interfaces.Repository;
+
+public interface ICategoryRepository : IBaseRepository<Category>
 {
-    
+    Task<List<Category>> GetAllAsync();
 }

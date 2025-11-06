@@ -1,3 +1,5 @@
-﻿namespace ProductManager.Application.Endpoints.Product.Update;
+﻿using ProductManager.Domain.Dtos;
 
-public record ProductUpdateResponse();
+namespace ProductManager.Application.Endpoints.Product.Update;
+
+public record ProductUpdateResponse(ProductDto Product);

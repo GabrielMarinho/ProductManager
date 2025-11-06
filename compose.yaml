@@ -1,7 +1,45 @@
 ﻿services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: productmanager-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=<PASSWORD>
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: productmanager-rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=<USERNAME>
+      - RABBITMQ_DEFAULT_PASS=<PASSWORD>
+    ports:
+      - "5672:5672"   # AMQP
+      - "15672:15672" # Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
   productmanager.api:
     image: productmanager.api
     build:
       context: .
       dockerfile: ProductManager.Api/Dockerfile
+    environment:
+      - DB_CONNECTION=Server=<CONNECTION-STRING>
+      - RabbitMq__Host=rabbitmq
+      - RabbitMq__Username=<USERNAME>
+      - RabbitMq__Password=<PASSWORD>
+      - RabbitMq__Port=5672
+    depends_on:
+      - sqlserver
+      - rabbitmq
+    ports:
+      - "8080:8080"
+
+volumes:
+  sqlserver_data: {}
+  rabbitmq_data: {}
 
