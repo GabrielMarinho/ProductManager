@@ -1,0 +1,7 @@
+﻿services:
+  productmanager.api:
+    image: productmanager.api
+    build:
+      context: .
+      dockerfile: ProductManager.Api/Dockerfile
+
