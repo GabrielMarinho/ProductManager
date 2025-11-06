@@ -1,5 +1,23 @@
 # Product Manager API
 
+<!-- TOC -->
+* [Product Manager API](#product-manager-api)
+  * [Aquitetura](#aquitetura)
+    * [Camada API](#camada-api)
+    * [Camada Application](#camada-application)
+    * [Camada Domain](#camada-domain)
+    * [Camada Infrastructure](#camada-infrastructure)
+    * [Projeto Tests](#projeto-tests)
+  * [Execução local](#execução-local)
+    * [Usando Docker e docker compose](#usando-docker-e-docker-compose)
+  * [Decisões ténicas](#decisões-ténicas)
+    * [Endpoints](#endpoints)
+    * [Utilização de "record" ao invés de classes](#utilização-de-record-ao-invés-de-classes)
+    * [Consumer RabbitMQ](#consumer-rabbitmq)
+  * [UML](#uml)
+    * [Request/Response and Repository Interaction (Sequence)](#requestresponse-and-repository-interaction-sequence)
+<!-- TOC -->
+
 ## Aquitetura
 Foi utilizado a arquitetura limpa neste projeto. Onde há várias camadas.
 
@@ -69,7 +87,12 @@ Para os endpoints, decidi utilizar o FastEndpoint, que para o momento, tamanho d
 
 Para mais detalhes, veja sobre o FastEndpoints, acesse o site do framework.
 
+É possível adicionar validações, com FluentValidation, que já vem integrado ao FastEndpoints. Bastando apenas criar a classe implemetando "AbstractValidator", criando as regras e no "bind" do payload a validação será executada, podendo ser "desabilitada" a validação automática para a manual. Veja mais detalhes sobre validações no link: https://fast-endpoints.com/docs/validation#request-dto-validation
+
 Mais em: https://fast-endpoints.com/
+
+### Utilização de "record" ao invés de classes
+Foi decidido utilizar tipos "record" por serem "mais" leves e consumirem menos recurso do .Net. São uma boa opção para DTOs, considerando que os valores informados em um DTO geralmente não mudam seus valores, o record irá garantir que os valores não sejam alterados. Inclusive, auxiliando na performance.
 
 ### Consumer RabbitMQ
 O consumer, inicialmente, seria criado dentro de um worker (basicamente um console application que não finaliza). Porém, novamente pelo tempo, decidi criar um BackgrdoundService. Mas, para um projeto maior, poderia ser uma Azure Function, por exemplo.
